@@ -47,31 +47,6 @@ export default function MusicList({ musicas }: MusicListProps) {
           </tbody>
         </table>
       </div>
-      {/* Mobile stacked view */}
-      <div className="sm:hidden flex flex-col divide-y divide-gray-200 dark:divide-gray-600">
-        {musicas.map((musica, index) => (
-          <div key={`${musica.codigo}-mobile-${index}`} className="p-3">
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-              Intérprete
-            </div>
-            <div className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">
-              {musica.interprete}
-            </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-              Código
-            </div>
-            <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">
-              {musica.codigo}
-            </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-              Música
-            </div>
-            <div className="text-sm text-gray-600 dark:text-gray-300">
-              {musica.titulo}
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
