@@ -9,9 +9,9 @@ export default function MusicList({ musicas }: MusicListProps) {
     <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
       <table className="w-full table-fixed">
         <colgroup>
-          <col className="w-1/6" />
-          <col className="w-1/2" />
-          <col className="w-1/3" />
+          <col className="w-1/6 sm:w-1/6" />
+          <col className="w-1/2 sm:w-1/2" />
+          <col className="w-1/3 sm:w-1/3" />
         </colgroup>
         <thead className="bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
           <tr>
@@ -35,10 +35,10 @@ export default function MusicList({ musicas }: MusicListProps) {
               <td className="px-2 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400 truncate">
                 {musica.codigo}
               </td>
-              <td className="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white truncate">
+              <td className="px-2 py-4 text-sm font-medium text-gray-900 dark:text-white truncate sm:whitespace-nowrap whitespace-normal sm:max-w-xs max-w-none">
                 {musica.titulo}
               </td>
-              <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 truncate">
+              <td className="px-2 py-4 text-sm text-gray-600 dark:text-gray-300 truncate sm:whitespace-nowrap whitespace-normal sm:max-w-xs max-w-none">
                 {musica.interprete}
               </td>
             </tr>
