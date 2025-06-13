@@ -51,7 +51,7 @@ export default function Pagination({
 
   return (
     <div className="flex items-center justify-between mt-6">
-      <div className="text-sm text-gray-700 dark:text-gray-300">
+      <div className="text-sm text-gray-700 dark:text-gray-300 mb-2 w-full text-center block md:mb-0 md:w-auto md:text-left">
         Página {currentPage} de {totalPages}
       </div>
 
