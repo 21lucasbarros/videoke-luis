@@ -35,10 +35,10 @@ export default function MusicList({ musicas }: MusicListProps) {
               <td className="px-2 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400 truncate">
                 {musica.codigo}
               </td>
-              <td className="px-2 py-4 text-sm font-medium text-gray-900 dark:text-white truncate sm:whitespace-nowrap whitespace-normal sm:max-w-xs max-w-none">
+              <td className="px-2 py-4 text-sm font-medium text-gray-900 dark:text-white break-words sm:whitespace-nowrap sm:max-w-xs">
                 {musica.titulo}
               </td>
-              <td className="px-2 py-4 text-sm text-gray-600 dark:text-gray-300 truncate sm:whitespace-nowrap whitespace-normal sm:max-w-xs max-w-none">
+              <td className="px-2 py-4 text-sm text-gray-600 dark:text-gray-300 break-words sm:whitespace-nowrap sm:max-w-xs">
                 {musica.interprete}
               </td>
             </tr>
