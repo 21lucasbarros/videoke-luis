@@ -33,14 +33,20 @@ export default function MusicList({ musicas }: MusicListProps) {
                 key={`${musica.codigo}-${index}`}
                 className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
-                <td className="px-2 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400 truncate max-w-[80px] sm:max-w-[120px]">
-                  {musica.interprete}
+                <td className="px-2 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400 truncate sm:max-w-[120px] max-w-none">
+                  <span className="block sm:hidden">{musica.interprete}</span>
+                  <span className="hidden sm:inline truncate">
+                    {musica.interprete}
+                  </span>
                 </td>
                 <td className="px-2 py-4 text-sm font-medium text-gray-900 dark:text-white whitespace-nowrap max-w-[40px] sm:max-w-[60px]">
                   {musica.codigo}
                 </td>
-                <td className="px-2 py-4 text-sm text-gray-600 dark:text-gray-300 truncate max-w-[100px] sm:max-w-[160px]">
-                  {musica.titulo}
+                <td className="px-2 py-4 text-sm text-gray-600 dark:text-gray-300 truncate sm:max-w-[160px] max-w-none">
+                  <span className="block sm:hidden">{musica.titulo}</span>
+                  <span className="hidden sm:inline truncate">
+                    {musica.titulo}
+                  </span>
                 </td>
               </tr>
             ))}
