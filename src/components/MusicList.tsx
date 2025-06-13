@@ -7,7 +7,8 @@ interface MusicListProps {
 export default function MusicList({ musicas }: MusicListProps) {
   return (
     <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-      <div className="overflow-x-auto">
+      {/* Tabela para telas médias e grandes */}
+      <div className="hidden md:block">
         <table className="w-full">
           <thead className="bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
             <tr>
@@ -41,6 +42,40 @@ export default function MusicList({ musicas }: MusicListProps) {
             ))}
           </tbody>
         </table>
+      </div>
+      {/* Cards para telas pequenas */}
+      <div className="md:hidden divide-y divide-gray-200 dark:divide-gray-600">
+        {musicas.map((musica, index) => (
+          <div
+            key={`${musica.codigo}-${index}`}
+            className="p-4 flex flex-col gap-2"
+          >
+            <div>
+              <span className="block text-xs text-gray-500 dark:text-gray-400 uppercase">
+                Código
+              </span>
+              <span className="text-blue-600 dark:text-blue-400 font-medium">
+                {musica.codigo}
+              </span>
+            </div>
+            <div>
+              <span className="block text-xs text-gray-500 dark:text-gray-400 uppercase">
+                Música
+              </span>
+              <span className="text-gray-900 dark:text-white font-medium">
+                {musica.titulo}
+              </span>
+            </div>
+            <div>
+              <span className="block text-xs text-gray-500 dark:text-gray-400 uppercase">
+                Intérprete
+              </span>
+              <span className="text-gray-600 dark:text-gray-300">
+                {musica.interprete}
+              </span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
