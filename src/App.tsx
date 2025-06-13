@@ -15,10 +15,19 @@ export default function App() {
   const musicas: Musica[] = musicasData;
 
   const filteredMusicas = useMemo(() => {
+    const normalize = (str: string) =>
+      str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ç/g, "c");
+
+    const normalizedSearch = normalize(searchTerm);
+
     return musicas.filter((musica) => {
       const matchesSearch =
-        musica.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        musica.interprete.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        normalize(musica.titulo).includes(normalizedSearch) ||
+        normalize(musica.interprete).includes(normalizedSearch) ||
         musica.codigo.includes(searchTerm);
 
       return matchesSearch;
