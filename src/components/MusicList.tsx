@@ -10,9 +10,9 @@ export default function MusicList({ musicas }: MusicListProps) {
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto">
           <colgroup>
-            <col className="w-2/6" />
-            <col className="w-1/6" />
-            <col className="w-3/6" />
+            <col className="w-2/6 sm:w-1/4" />
+            <col className="w-1/6 sm:w-1/4" />
+            <col className="w-3/6 sm:w-2/4" />
           </colgroup>
           <thead className="bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
             <tr>
@@ -33,19 +33,53 @@ export default function MusicList({ musicas }: MusicListProps) {
                 key={`${musica.codigo}-${index}`}
                 className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
-                <td className="px-2 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400 truncate max-w-[120px]">
+                <td className="px-2 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400 truncate max-w-[80px] sm:max-w-[120px]">
+                  <span className="block sm:hidden font-semibold">
+                    Intérprete:{" "}
+                  </span>
                   {musica.interprete}
                 </td>
-                <td className="px-2 py-4 text-sm font-medium text-gray-900 dark:text-white whitespace-nowrap max-w-[60px]">
+                <td className="px-2 py-4 text-sm font-medium text-gray-900 dark:text-white whitespace-nowrap max-w-[40px] sm:max-w-[60px]">
+                  <span className="block sm:hidden font-semibold">
+                    Código:{" "}
+                  </span>
                   {musica.codigo}
                 </td>
-                <td className="px-2 py-4 text-sm text-gray-600 dark:text-gray-300 truncate max-w-[160px]">
+                <td className="px-2 py-4 text-sm text-gray-600 dark:text-gray-300 truncate max-w-[100px] sm:max-w-[160px]">
+                  <span className="block sm:hidden font-semibold">
+                    Música:{" "}
+                  </span>
                   {musica.titulo}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+      {/* Mobile stacked view */}
+      <div className="sm:hidden flex flex-col divide-y divide-gray-200 dark:divide-gray-600">
+        {musicas.map((musica, index) => (
+          <div key={`${musica.codigo}-mobile-${index}`} className="p-3">
+            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+              Intérprete
+            </div>
+            <div className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">
+              {musica.interprete}
+            </div>
+            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+              Código
+            </div>
+            <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">
+              {musica.codigo}
+            </div>
+            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+              Música
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-300">
+              {musica.titulo}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
