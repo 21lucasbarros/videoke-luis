@@ -16,13 +16,13 @@ export default function MusicList({ musicas }: MusicListProps) {
         <thead className="bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
           <tr>
             <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              Intérprete
+            </th>
+            <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
               Código
             </th>
             <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
               Música
-            </th>
-            <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-              Intérprete
             </th>
           </tr>
         </thead>
@@ -33,13 +33,13 @@ export default function MusicList({ musicas }: MusicListProps) {
               className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               <td className="px-2 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400 truncate">
-                {musica.codigo}
+                {musica.interprete}
               </td>
               <td className="px-2 py-4 text-sm font-medium text-gray-900 dark:text-white break-words sm:whitespace-nowrap sm:max-w-xs">
-                {musica.titulo}
+                {musica.codigo}
               </td>
               <td className="px-2 py-4 text-sm text-gray-600 dark:text-gray-300 break-words sm:whitespace-nowrap sm:max-w-xs">
-                {musica.interprete}
+                {musica.titulo}
               </td>
             </tr>
           ))}
