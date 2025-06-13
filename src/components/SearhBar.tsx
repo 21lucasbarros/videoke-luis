@@ -9,6 +9,13 @@ export default function SearchBar({
   searchTerm,
   onSearchChange,
 }: SearchBarProps) {
+  function normalize(str: string) {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+  }
+
   return (
     <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-6">
       <div className="relative">
@@ -17,7 +24,7 @@ export default function SearchBar({
           type="text"
           placeholder="Buscar por música, intérprete ou código..."
           value={searchTerm}
-          onChange={(e) => onSearchChange(e.target.value)}
+          onChange={(e) => onSearchChange(normalize(e.target.value))}
           className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
         />
       </div>
