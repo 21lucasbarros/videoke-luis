@@ -4,15 +4,35 @@ import type { Musica } from "./types/musica";
 import SearchBar from "./components/SearhBar";
 import MusicList from "./components/MusicList";
 import Pagination from "./components/Pagination";
-import musicasData from "./data/musicas.json";
+import { TableSkeleton } from "./components/TableSkeleton";
+import { EmptyState } from "./components/EmptyState";
+import { FavoritesProvider, useFavorites } from "./contexts/FavoritesContext";
 
 const ITEMS_PER_PAGE = 20;
 
-export default function App() {
+function AppContent() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [musicas, setMusicas] = useState<Musica[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+  const { favorites } = useFavorites();
 
-  const musicas: Musica[] = musicasData;
+  useEffect(() => {
+    const loadMusicas = async () => {
+      setLoading(true);
+      try {
+        const response = await import("./data/musicas.json");
+        setMusicas(response.default);
+      } catch (error) {
+        console.error("Erro ao carregar músicas:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadMusicas();
+  }, []);
 
   const filteredMusicas = useMemo(() => {
     const normalize = (str: string) =>
@@ -30,9 +50,12 @@ export default function App() {
         normalize(musica.interprete).includes(normalizedSearch) ||
         musica.codigo.includes(searchTerm);
 
-      return matchesSearch;
+      const matchesFavorites =
+        !showOnlyFavorites || favorites.has(musica.codigo);
+
+      return matchesSearch && matchesFavorites;
     });
-  }, [musicas, searchTerm]);
+  }, [musicas, searchTerm, showOnlyFavorites, favorites]);
 
   const totalPages = Math.ceil(filteredMusicas.length / ITEMS_PER_PAGE);
 
@@ -43,10 +66,14 @@ export default function App() {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchTerm]);
+  }, [searchTerm, showOnlyFavorites]);
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
-      <Header />
+    <div className="min-h-screen bg-gray-50 dark:bg-[#1A1A1A] transition-colors">
+      <Header
+        showOnlyFavorites={showOnlyFavorites}
+        onToggleFavorites={() => setShowOnlyFavorites(!showOnlyFavorites)}
+      />
 
       <main className="max-w-6xl mx-auto px-6 py-8">
         <div className="mb-6">
@@ -54,19 +81,35 @@ export default function App() {
             {filteredMusicas.length} música
             {filteredMusicas.length !== 1 ? "s" : ""} encontrada
             {filteredMusicas.length !== 1 ? "s" : ""}
+            {showOnlyFavorites && " (favoritas)"}
           </p>
         </div>
 
         <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
-        <MusicList musicas={paginatedMusicas} />
-
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
+        {loading ? (
+          <TableSkeleton />
+        ) : filteredMusicas.length === 0 ? (
+          <EmptyState searchTerm={searchTerm} />
+        ) : (
+          <>
+            <MusicList musicas={paginatedMusicas} />
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </>
+        )}
       </main>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <FavoritesProvider>
+      <AppContent />
+    </FavoritesProvider>
   );
 }
